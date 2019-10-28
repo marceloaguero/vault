@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+
 	"github.com/marceloaguero/vault/pkg/endpoint"
 )
 
 func decodeHashRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	var req endpoint.hashRequest
+	var req endpoint.HashRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		return nil, err
@@ -18,7 +19,7 @@ func decodeHashRequest(ctx context.Context, r *http.Request) (interface{}, error
 }
 
 func decodeValidateRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	var req endpoint.validateRequest
+	var req endpoint.ValidateRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		return nil, err
