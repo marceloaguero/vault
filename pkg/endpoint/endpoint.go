@@ -1,5 +1,12 @@
 package endpoint
 
+import (
+	"context"
+
+	"github.com/go-kit/kit/endpoint"
+	"github.com/marceloaguero/vault/pkg/service"
+)
+
 // HashRequest specifies the request parameters for Hash method
 type HashRequest struct {
 	Password string `json:"password"`
@@ -21,4 +28,30 @@ type ValidateRequest struct {
 type ValidateResponse struct {
 	Valid bool   `json:"valid"`
 	Err   string `json:"err,omitempty"`
+}
+
+// MakeHashEndpoint returns an endpoint that invokes Hash on the service
+func MakeHashEndpoint(srv service.VaultService) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(HashRequest)
+		v, err := srv.Hash(ctx, req.Password)
+		if err != nil {
+			return HashResponse{v, err.Error()}, nil
+		}
+
+		return HashResponse{v, ""}, nil
+	}
+}
+
+// MakeValidateEndpoint returns an endpoint that invokes Validate on the service
+func MakeValidateEndpoint(srv service.VaultService) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(ValidateRequest)
+		v, err := srv.Validate(ctx, req.Password, req.Hash)
+		if err != nil {
+			return ValidateResponse{false, err.Error()}, nil
+		}
+
+		return ValidateResponse{v, ""}, nil
+	}
 }
