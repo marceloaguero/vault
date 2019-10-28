@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"github.com/marceloaguero/vault/pkg/endpoint"
 )
 
 func decodeHashRequest(ctx context.Context, r *http.Request) (interface{}, error) {
