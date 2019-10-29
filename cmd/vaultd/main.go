@@ -13,8 +13,8 @@ import (
 
 	"github.com/marceloaguero/vault/pb"
 	"github.com/marceloaguero/vault/pkg/endpoint"
-	grpcserver "github.com/marceloaguero/vault/pkg/grpc"
-	httpserver "github.com/marceloaguero/vault/pkg/http"
+	grpcservice "github.com/marceloaguero/vault/pkg/grpc"
+	httpservice "github.com/marceloaguero/vault/pkg/http"
 	"github.com/marceloaguero/vault/pkg/service"
 	"google.golang.org/grpc"
 )
@@ -47,7 +47,7 @@ func main() {
 	// HTTP transport
 	go func() {
 		log.Println("http:", *httpAddr)
-		handler := httpserver.NewHTTPServer(ctx, endpoints)
+		handler := httpservice.NewHTTPServer(ctx, endpoints)
 		errChan <- http.ListenAndServe(*httpAddr, handler)
 	}()
 
@@ -59,7 +59,7 @@ func main() {
 			return
 		}
 		log.Println("grpc:", *gRPCAddr)
-		handler := grpcserver.NewGRPCServer(ctx, endpoints)
+		handler := grpcservice.NewGRPCServer(ctx, endpoints)
 		gRPCServer := grpc.NewServer()
 		pb.RegisterVaultServer(gRPCServer, handler)
 		errChan <- gRPCServer.Serve(listener)
