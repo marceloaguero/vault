@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	grpcclient "github.com/marceloaguero/vault/client/grpc"
+	grpcservice "github.com/marceloaguero/vault/pkg/grpc"
 	"github.com/marceloaguero/vault/pkg/service"
 	"google.golang.org/grpc"
 )
@@ -33,7 +33,7 @@ func main() {
 		log.Fatalln("gRPC dial:", err)
 	}
 	defer conn.Close()
-	vaultService := grpcclient.New(conn)
+	vaultService := grpcservice.NewGRPCClient(conn)
 	args := flag.Args()
 	var cmd string
 	cmd, args = pop(args)

@@ -6,6 +6,8 @@ import (
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 	"github.com/marceloaguero/vault/pb"
 	"github.com/marceloaguero/vault/pkg/endpoint"
+	"github.com/marceloaguero/vault/pkg/service"
+	"google.golang.org/grpc"
 )
 
 type grpcServer struct {
@@ -29,42 +31,42 @@ func (s *grpcServer) Validate(ctx context.Context, r *pb.ValidateRequest) (*pb.V
 	return resp.(*pb.ValidateResponse), nil
 }
 
-func EncodeGRPCHashRequest(ctx context.Context, r interface{}) (interface{}, error) {
+func encodeGRPCHashRequest(ctx context.Context, r interface{}) (interface{}, error) {
 	req := r.(endpoint.HashRequest)
 	return &pb.HashRequest{Password: req.Password}, nil
 }
 
-func DecodeGRPCHashRequest(ctx context.Context, r interface{}) (interface{}, error) {
+func decodeGRPCHashRequest(ctx context.Context, r interface{}) (interface{}, error) {
 	req := r.(*pb.HashRequest)
 	return endpoint.HashRequest{Password: req.Password}, nil
 }
 
-func EncodeGRPCHashResponse(ctx context.Context, r interface{}) (interface{}, error) {
+func encodeGRPCHashResponse(ctx context.Context, r interface{}) (interface{}, error) {
 	res := r.(endpoint.HashResponse)
 	return &pb.HashResponse{Hash: res.Hash, Err: res.Err}, nil
 }
 
-func DecodeGRPCHashResponse(ctx context.Context, r interface{}) (interface{}, error) {
+func decodeGRPCHashResponse(ctx context.Context, r interface{}) (interface{}, error) {
 	res := r.(*pb.HashResponse)
 	return endpoint.HashResponse{Hash: res.Hash, Err: res.Err}, nil
 }
 
-func EncodeGRPCValidateRequest(ctx context.Context, r interface{}) (interface{}, error) {
+func encodeGRPCValidateRequest(ctx context.Context, r interface{}) (interface{}, error) {
 	req := r.(endpoint.ValidateRequest)
 	return &pb.ValidateRequest{Password: req.Password, Hash: req.Hash}, nil
 }
 
-func DecodeGRPCValidateRequest(ctx context.Context, r interface{}) (interface{}, error) {
+func decodeGRPCValidateRequest(ctx context.Context, r interface{}) (interface{}, error) {
 	req := r.(*pb.ValidateRequest)
 	return endpoint.ValidateRequest{Password: req.Password, Hash: req.Hash}, nil
 }
 
-func EncodeGRPCValidateResponse(ctx context.Context, r interface{}) (interface{}, error) {
+func encodeGRPCValidateResponse(ctx context.Context, r interface{}) (interface{}, error) {
 	res := r.(endpoint.ValidateResponse)
 	return &pb.ValidateResponse{Valid: res.Valid}, nil
 }
 
-func DecodeGRPCValidateResponse(ctx context.Context, r interface{}) (interface{}, error) {
+func decodeGRPCValidateResponse(ctx context.Context, r interface{}) (interface{}, error) {
 	res := r.(*pb.ValidateResponse)
 	return endpoint.ValidateResponse{Valid: res.Valid}, nil
 }
@@ -74,13 +76,37 @@ func NewGRPCServer(ctx context.Context, endpoints endpoint.Endpoints) pb.VaultSe
 	return &grpcServer{
 		hash: grpctransport.NewServer(
 			endpoints.HashEndpoint,
-			DecodeGRPCHashRequest,
-			EncodeGRPCHashResponse,
+			decodeGRPCHashRequest,
+			encodeGRPCHashResponse,
 		),
 		validate: grpctransport.NewServer(
 			endpoints.ValidateEndpoint,
-			DecodeGRPCValidateRequest,
-			EncodeGRPCValidateResponse,
+			decodeGRPCValidateRequest,
+			encodeGRPCValidateResponse,
 		),
+	}
+}
+
+// NewGRPCClient makes a new vault.Service client.
+func NewGRPCClient(conn *grpc.ClientConn) service.VaultService {
+	var hashEndpoint = grpctransport.NewClient(
+		conn,
+		"pb.Vault",
+		"Hash",
+		encodeGRPCHashRequest,
+		decodeGRPCHashResponse,
+		pb.HashResponse{},
+	).Endpoint()
+	var validateEndpoint = grpctransport.NewClient(
+		conn,
+		"pb.Vault",
+		"Validate",
+		encodeGRPCValidateRequest,
+		decodeGRPCValidateResponse,
+		pb.ValidateResponse{},
+	).Endpoint()
+	return endpoint.Endpoints{
+		HashEndpoint:     hashEndpoint,
+		ValidateEndpoint: validateEndpoint,
 	}
 }
