@@ -110,7 +110,7 @@ func (m *HashResponse) GetErr() string {
 	return ""
 }
 
-type ValidatRequest struct {
+type ValidateRequest struct {
 	Password             string   `protobuf:"bytes,1,opt,name=password,proto3" json:"password,omitempty"`
 	Hash                 string   `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -118,39 +118,39 @@ type ValidatRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ValidatRequest) Reset()         { *m = ValidatRequest{} }
-func (m *ValidatRequest) String() string { return proto.CompactTextString(m) }
-func (*ValidatRequest) ProtoMessage()    {}
-func (*ValidatRequest) Descriptor() ([]byte, []int) {
+func (m *ValidateRequest) Reset()         { *m = ValidateRequest{} }
+func (m *ValidateRequest) String() string { return proto.CompactTextString(m) }
+func (*ValidateRequest) ProtoMessage()    {}
+func (*ValidateRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_0adf1cc59b0dff3b, []int{2}
 }
 
-func (m *ValidatRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ValidatRequest.Unmarshal(m, b)
+func (m *ValidateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ValidateRequest.Unmarshal(m, b)
 }
-func (m *ValidatRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ValidatRequest.Marshal(b, m, deterministic)
+func (m *ValidateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ValidateRequest.Marshal(b, m, deterministic)
 }
-func (m *ValidatRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ValidatRequest.Merge(m, src)
+func (m *ValidateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ValidateRequest.Merge(m, src)
 }
-func (m *ValidatRequest) XXX_Size() int {
-	return xxx_messageInfo_ValidatRequest.Size(m)
+func (m *ValidateRequest) XXX_Size() int {
+	return xxx_messageInfo_ValidateRequest.Size(m)
 }
-func (m *ValidatRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ValidatRequest.DiscardUnknown(m)
+func (m *ValidateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ValidateRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ValidatRequest proto.InternalMessageInfo
+var xxx_messageInfo_ValidateRequest proto.InternalMessageInfo
 
-func (m *ValidatRequest) GetPassword() string {
+func (m *ValidateRequest) GetPassword() string {
 	if m != nil {
 		return m.Password
 	}
 	return ""
 }
 
-func (m *ValidatRequest) GetHash() string {
+func (m *ValidateRequest) GetHash() string {
 	if m != nil {
 		return m.Hash
 	}
@@ -199,27 +199,27 @@ func (m *ValidateResponse) GetValid() bool {
 func init() {
 	proto.RegisterType((*HashRequest)(nil), "pb.HashRequest")
 	proto.RegisterType((*HashResponse)(nil), "pb.HashResponse")
-	proto.RegisterType((*ValidatRequest)(nil), "pb.ValidatRequest")
+	proto.RegisterType((*ValidateRequest)(nil), "pb.ValidateRequest")
 	proto.RegisterType((*ValidateResponse)(nil), "pb.ValidateResponse")
 }
 
 func init() { proto.RegisterFile("vault.proto", fileDescriptor_0adf1cc59b0dff3b) }
 
 var fileDescriptor_0adf1cc59b0dff3b = []byte{
-	// 206 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x90, 0xbf, 0xaf, 0x82, 0x30,
-	0x10, 0x80, 0x1f, 0x3c, 0x78, 0xe1, 0x1d, 0x46, 0xc9, 0x85, 0x81, 0x30, 0x99, 0x4e, 0x18, 0x13,
-	0x06, 0x35, 0xce, 0x8e, 0xce, 0x0c, 0xec, 0x25, 0x34, 0xc1, 0x84, 0xd8, 0xda, 0x16, 0xfc, 0xf7,
-	0x4d, 0x0b, 0x02, 0x6e, 0x6e, 0x77, 0x5f, 0xaf, 0xdf, 0xfd, 0x80, 0xb0, 0xa7, 0x5d, 0xab, 0x73,
-	0x21, 0xb9, 0xe6, 0xe8, 0x8a, 0x8a, 0xec, 0x20, 0xbc, 0x52, 0xd5, 0x14, 0xec, 0xd1, 0x31, 0xa5,
-	0x31, 0x85, 0x40, 0x50, 0xa5, 0x9e, 0x5c, 0xd6, 0x89, 0xb3, 0x75, 0xb2, 0xff, 0x62, 0xca, 0xc9,
-	0x09, 0x56, 0x43, 0xa9, 0x12, 0xfc, 0xae, 0x18, 0x22, 0x78, 0x0d, 0x55, 0xcd, 0x58, 0x67, 0x63,
-	0x8c, 0xe0, 0x97, 0x49, 0x99, 0xb8, 0x16, 0x99, 0x90, 0x5c, 0x60, 0x5d, 0xd2, 0xf6, 0x56, 0x53,
-	0xfd, 0x45, 0x8f, 0xc9, 0xe9, 0xce, 0x4e, 0x92, 0x41, 0x34, 0x1a, 0xd8, 0xd4, 0x3b, 0x06, 0xbf,
-	0x37, 0xcc, 0x0a, 0x82, 0x62, 0x48, 0x0e, 0x2d, 0xf8, 0xa5, 0xd9, 0x0f, 0xf7, 0xe0, 0x99, 0x51,
-	0x71, 0x93, 0x8b, 0x2a, 0x5f, 0xec, 0x97, 0x46, 0x33, 0x18, 0x4c, 0xe4, 0x07, 0xcf, 0x10, 0xbc,
-	0xfd, 0x88, 0xe6, 0xfd, 0x73, 0xde, 0x34, 0x5e, 0x30, 0x36, 0xff, 0xab, 0xfe, 0xec, 0x15, 0x8f,
-	0xaf, 0x00, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x8d, 0x58, 0x3c, 0x54, 0x01, 0x00, 0x00,
+	// 207 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2e, 0x4b, 0x2c, 0xcd,
+	0x29, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x2a, 0x48, 0x52, 0xd2, 0xe4, 0xe2, 0xf6,
+	0x48, 0x2c, 0xce, 0x08, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x92, 0xe2, 0xe2, 0x28, 0x48,
+	0x2c, 0x2e, 0x2e, 0xcf, 0x2f, 0x4a, 0x91, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x82, 0xf3, 0x95,
+	0x4c, 0xb8, 0x78, 0x20, 0x4a, 0x8b, 0x0b, 0xf2, 0xf3, 0x8a, 0x53, 0x85, 0x84, 0xb8, 0x58, 0x32,
+	0x12, 0x8b, 0x33, 0xa0, 0xea, 0xc0, 0x6c, 0x21, 0x01, 0x2e, 0xe6, 0xd4, 0xa2, 0x22, 0x09, 0x26,
+	0xb0, 0x10, 0x88, 0xa9, 0xe4, 0xc8, 0xc5, 0x1f, 0x96, 0x98, 0x93, 0x99, 0x92, 0x58, 0x92, 0x4a,
+	0x84, 0x25, 0x70, 0x43, 0x99, 0x10, 0x86, 0x2a, 0x69, 0x70, 0x09, 0x20, 0x8c, 0x80, 0x5a, 0x2e,
+	0xc2, 0xc5, 0x5a, 0x06, 0x12, 0x03, 0x1b, 0xc0, 0x11, 0x04, 0xe1, 0x18, 0xe5, 0x72, 0xb1, 0x86,
+	0x81, 0x3c, 0x28, 0xa4, 0xcd, 0xc5, 0x02, 0x72, 0xab, 0x10, 0xbf, 0x5e, 0x41, 0x92, 0x1e, 0x92,
+	0x07, 0xa5, 0x04, 0x10, 0x02, 0x10, 0x93, 0x94, 0x18, 0x84, 0xcc, 0xb9, 0x38, 0x60, 0xe6, 0x0b,
+	0x09, 0x83, 0xe4, 0xd1, 0x1c, 0x2c, 0x25, 0x82, 0x2a, 0x08, 0xd3, 0x98, 0xc4, 0x06, 0x0e, 0x47,
+	0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x27, 0x61, 0x09, 0xbd, 0x56, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -235,7 +235,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type VaultClient interface {
 	Hash(ctx context.Context, in *HashRequest, opts ...grpc.CallOption) (*HashResponse, error)
-	Validate(ctx context.Context, in *ValidatRequest, opts ...grpc.CallOption) (*ValidateResponse, error)
+	Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidateResponse, error)
 }
 
 type vaultClient struct {
@@ -255,7 +255,7 @@ func (c *vaultClient) Hash(ctx context.Context, in *HashRequest, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *vaultClient) Validate(ctx context.Context, in *ValidatRequest, opts ...grpc.CallOption) (*ValidateResponse, error) {
+func (c *vaultClient) Validate(ctx context.Context, in *ValidateRequest, opts ...grpc.CallOption) (*ValidateResponse, error) {
 	out := new(ValidateResponse)
 	err := c.cc.Invoke(ctx, "/pb.Vault/Validate", in, out, opts...)
 	if err != nil {
@@ -267,7 +267,7 @@ func (c *vaultClient) Validate(ctx context.Context, in *ValidatRequest, opts ...
 // VaultServer is the server API for Vault service.
 type VaultServer interface {
 	Hash(context.Context, *HashRequest) (*HashResponse, error)
-	Validate(context.Context, *ValidatRequest) (*ValidateResponse, error)
+	Validate(context.Context, *ValidateRequest) (*ValidateResponse, error)
 }
 
 // UnimplementedVaultServer can be embedded to have forward compatible implementations.
@@ -277,7 +277,7 @@ type UnimplementedVaultServer struct {
 func (*UnimplementedVaultServer) Hash(ctx context.Context, req *HashRequest) (*HashResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Hash not implemented")
 }
-func (*UnimplementedVaultServer) Validate(ctx context.Context, req *ValidatRequest) (*ValidateResponse, error) {
+func (*UnimplementedVaultServer) Validate(ctx context.Context, req *ValidateRequest) (*ValidateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Validate not implemented")
 }
 
@@ -304,7 +304,7 @@ func _Vault_Hash_Handler(srv interface{}, ctx context.Context, dec func(interfac
 }
 
 func _Vault_Validate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ValidatRequest)
+	in := new(ValidateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -316,7 +316,7 @@ func _Vault_Validate_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/pb.Vault/Validate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VaultServer).Validate(ctx, req.(*ValidatRequest))
+		return srv.(VaultServer).Validate(ctx, req.(*ValidateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

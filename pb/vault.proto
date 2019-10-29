@@ -4,7 +4,7 @@ package pb;
 
 service Vault {
     rpc Hash (HashRequest) returns (HashResponse) {}
-    rpc Validate (ValidatRequest) returns (ValidateResponse) {}
+    rpc Validate (ValidateRequest) returns (ValidateResponse) {}
 }
 
 message HashRequest {
@@ -16,7 +16,7 @@ message HashResponse {
     string err = 2;
 }
 
-message ValidatRequest {
+message ValidateRequest {
     string password = 1;
     string hash = 2;
 }
