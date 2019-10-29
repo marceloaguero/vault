@@ -32,7 +32,7 @@ type ValidateResponse struct {
 }
 
 // MakeHashEndpoint returns an endpoint that invokes Hash on the service
-func MakeHashEndpoint(srv service.VaultService) endpoint.Endpoint {
+func MakeHashEndpoint(srv service.Vault) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(HashRequest)
 		v, err := srv.Hash(ctx, req.Password)
@@ -45,7 +45,7 @@ func MakeHashEndpoint(srv service.VaultService) endpoint.Endpoint {
 }
 
 // MakeValidateEndpoint returns an endpoint that invokes Validate on the service
-func MakeValidateEndpoint(srv service.VaultService) endpoint.Endpoint {
+func MakeValidateEndpoint(srv service.Vault) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(ValidateRequest)
 		v, err := srv.Validate(ctx, req.Password, req.Hash)
@@ -63,7 +63,7 @@ type Endpoints struct {
 	ValidateEndpoint endpoint.Endpoint
 }
 
-// Implement service.VaultService interface
+// Implement service.Vault interface
 
 // Hash uses the HashEndpoint to hash a password.
 func (e Endpoints) Hash(ctx context.Context, password string) (string, error) {

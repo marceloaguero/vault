@@ -52,7 +52,7 @@ func main() {
 	}
 }
 
-func hash(ctx context.Context, service service.VaultService, password string) {
+func hash(ctx context.Context, service service.Vault, password string) {
 	h, err := service.Hash(ctx, password)
 	if err != nil {
 		log.Fatalln(err.Error())
@@ -60,7 +60,7 @@ func hash(ctx context.Context, service service.VaultService, password string) {
 	fmt.Println(h)
 }
 
-func validate(ctx context.Context, service service.VaultService, password, hash string) {
+func validate(ctx context.Context, service service.Vault, password, hash string) {
 	valid, err := service.Validate(ctx, password, hash)
 	if err != nil {
 		log.Fatalln(err.Error())

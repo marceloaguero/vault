@@ -6,7 +6,7 @@ import (
 )
 
 func TestHasherService(t *testing.T) {
-	srv := NewVaultService()
+	srv := NewVault()
 	ctx := context.Background()
 
 	h, err := srv.Hash(ctx, "password")

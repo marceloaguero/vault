@@ -88,7 +88,7 @@ func NewGRPCServer(ctx context.Context, endpoints endpoint.Endpoints) pb.VaultSe
 }
 
 // NewGRPCClient makes a new vault.Service client.
-func NewGRPCClient(conn *grpc.ClientConn) service.VaultService {
+func NewGRPCClient(conn *grpc.ClientConn) service.Vault {
 	var hashEndpoint = grpctransport.NewClient(
 		conn,
 		"pb.Vault",

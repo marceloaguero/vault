@@ -26,7 +26,7 @@ func main() {
 	)
 	flag.Parse()
 	ctx := context.Background()
-	srv := service.NewVaultService()
+	srv := service.NewVault()
 	errChan := make(chan error)
 
 	// Trap termination signals (such as Ctrl+C) and send an error to errChan

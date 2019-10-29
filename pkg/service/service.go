@@ -6,20 +6,20 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// VaultService provides password hashing capabilities.
-type VaultService interface {
+// Vault provides password hashing capabilities.
+type Vault interface {
 	Hash(ctx context.Context, password string) (string, error)
 	Validate(ctx context.Context, password, hash string) (bool, error)
 }
 
-type vaultService struct{}
+type vault struct{}
 
-// NewVaultService makes a new Service
-func NewVaultService() VaultService {
-	return vaultService{}
+// NewVault makes a new Service
+func NewVault() Vault {
+	return vault{}
 }
 
-func (vaultService) Hash(ctx context.Context, password string) (string, error) {
+func (vault) Hash(ctx context.Context, password string) (string, error) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		return "", err
@@ -28,7 +28,7 @@ func (vaultService) Hash(ctx context.Context, password string) (string, error) {
 	return string(hash), nil
 }
 
-func (vaultService) Validate(ctx context.Context, password, hash string) (bool, error) {
+func (vault) Validate(ctx context.Context, password, hash string) (bool, error) {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	if err != nil {
 		return false, nil
