@@ -2,6 +2,7 @@ package endpoint
 
 import (
 	"context"
+	"errors"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/marceloaguero/vault/pkg/service"
@@ -54,4 +55,40 @@ func MakeValidateEndpoint(srv service.VaultService) endpoint.Endpoint {
 
 		return ValidateResponse{v, ""}, nil
 	}
+}
+
+// Endpoints represents all endpoints for the vault Service.
+type Endpoints struct {
+	HashEndpoint     endpoint.Endpoint
+	ValidateEndpoint endpoint.Endpoint
+}
+
+// Implement service.VaultService interface
+
+// Hash uses the HashEndpoint to hash a password.
+func (e Endpoints) Hash(ctx context.Context, password string) (string, error) {
+	req := HashRequest{Password: password}
+	resp, err := e.HashEndpoint(ctx, req)
+	if err != nil {
+		return "", err
+	}
+	hashResp := resp.(HashResponse)
+	if hashResp.Err != "" {
+		return "", errors.New(hashResp.Err)
+	}
+	return hashResp.Hash, nil
+}
+
+// Validate uses the ValidateEndpoint to validate a password and hash pair.
+func (e Endpoints) Validate(ctx context.Context, password, hash string) (bool, error) {
+	req := ValidateRequest{Password: password, Hash: hash}
+	resp, err := e.ValidateEndpoint(ctx, req)
+	if err != nil {
+		return false, err
+	}
+	validateResp := resp.(ValidateResponse)
+	if validateResp.Err != "" {
+		return false, errors.New(validateResp.Err)
+	}
+	return validateResp.Valid, nil
 }
